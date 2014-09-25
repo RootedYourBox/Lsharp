@@ -545,25 +545,9 @@ namespace LeagueSharp.Common
         /// <summary>
         /// Gets the damage that the skillshot will deal to the target using the damage lib.
         /// </summary>
-        public float GetDamage(Obj_AI_Base target, DamageLib.StageType stagetype = DamageLib.StageType.Default)
+        public float GetDamage(Obj_AI_Base target, int stage = 0)
         {
-            var type = DamageLib.SpellType.Q;
-            switch (Slot)
-            {
-                case SpellSlot.Q:
-                    type = DamageLib.SpellType.Q;
-                    break;
-                case SpellSlot.W:
-                    type = DamageLib.SpellType.W;
-                    break;
-                case SpellSlot.E:
-                    type = DamageLib.SpellType.E;
-                    break;
-                case SpellSlot.R:
-                    type = DamageLib.SpellType.R;
-                    break;
-            }
-            return (float) DamageLib.getDmg(target, type, stagetype);
+            return (float)ObjectManager.Player.GetSpellDamage(target, Slot, stage);
         }
 
         /// <summary>
