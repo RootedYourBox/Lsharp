@@ -8,7 +8,7 @@ namespace UltimateCarry
 	{
 		public const int LocalVersion = 46;
 		public static Menu Menu;
-		//public static Orbwalking.Orbwalker Orbwalker;
+		public static Orbwalking.Orbwalker Orbwalker;
 
 		// ReSharper disable once UnusedParameter.Local
 		private static void Main(string[] args)
@@ -24,8 +24,8 @@ namespace UltimateCarry
 			var targetSelectorMenu = new Menu("Target Selector", "TargetSelector");
 			SimpleTs.AddToMenu(targetSelectorMenu);
 			Menu.AddSubMenu(targetSelectorMenu);
-			var orbwalking = Menu.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
-			Orbwalker = new Orbwalking.Orbwalker(orbwalking);
+			//var orbwalking = Menu.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
+			//Orbwalker = new Orbwalking.Orbwalker(orbwalking);
 
 			//var overlay = new Overlay();
 			var potionManager = new PotionManager();
