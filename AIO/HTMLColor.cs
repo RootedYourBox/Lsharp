@@ -1,4 +1,4 @@
-﻿namespace UltimateCarry
+﻿namespace AIO
 {
 	public static class HtmlColor
 	{

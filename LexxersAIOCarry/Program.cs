@@ -21,7 +21,7 @@ namespace UltimateCarry
 			CustomEvents.Game.OnGameLoad  += Game_OnGameLoad;
 		}
 
-		private static void Game_OnGameLoad(EventArgs args)
+		private static void aGame_OnGameLoad(EventArgs args)
 		{
 			//AutoUpdater.InitializeUpdater();
 			Chat.Print("Ultimate Carry Version " + LocalVersion + " load ...");

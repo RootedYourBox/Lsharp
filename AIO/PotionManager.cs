@@ -4,7 +4,7 @@ using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
 
-namespace UltimateCarry
+namespace AIO
 {
 	internal class PotionManager
 	{
@@ -91,15 +91,15 @@ namespace UltimateCarry
 		private void Start()
 		{
 			_potions = _potions.OrderBy(x => x.Priority).ToList();
-			Program.Menu.AddSubMenu(new Menu("Bom Mau-Mana ", "PotionManager"));
+			Program.Menu.AddSubMenu(new Menu("PotionManager", "PotionManager"));
 
-			Program.Menu.SubMenu("PotionManager").AddSubMenu(new Menu("Mau", "Health"));
-			Program.Menu.SubMenu("PotionManager").SubMenu("Health").AddItem(new MenuItem("HealthPotion", "Su dung Mau").SetValue(true));
-			Program.Menu.SubMenu("PotionManager").SubMenu("Health").AddItem(new MenuItem("HealthPercent", "% Mau").SetValue(new Slider(60)));
+			Program.Menu.SubMenu("PotionManager").AddSubMenu(new Menu("Health", "Health"));
+			Program.Menu.SubMenu("PotionManager").SubMenu("Health").AddItem(new MenuItem("HealthPotion", "Use Health Potion").SetValue(true));
+			Program.Menu.SubMenu("PotionManager").SubMenu("Health").AddItem(new MenuItem("HealthPercent", "HP Trigger Percent").SetValue(new Slider(30)));
 
 			Program.Menu.SubMenu("PotionManager").AddSubMenu(new Menu("Mana", "Mana"));
-			Program.Menu.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPotion", "Su Dung Mana").SetValue(true));
-			Program.Menu.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPercent", "% Mana").SetValue(new Slider(60)));
+			Program.Menu.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPotion", "Use Mana Potion").SetValue(true));
+			Program.Menu.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPercent", "MP Trigger Percent").SetValue(new Slider(30)));
 
 			Game.OnGameUpdate += OnGameUpdate;
 		}
