@@ -7,7 +7,7 @@ namespace AIO
 	class Program
 	{
 		public const int LocalVersion = 1; //for update
-        public const String Version = "1.0.*";
+        public const String Version = "1.0.1.*";
 
 		
 		public static Menu Menu;

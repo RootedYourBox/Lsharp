@@ -63,6 +63,28 @@ namespace AIO
 
 		private static IEnumerable<Item> GetallItems()
 		{
+			if (ObjectManager.Player.ChampionName == "Azir")
+			{
+				var list = new List<Item>
+			{
+				new Item(3139, "Mercurial Scimitar", "1,4", "Defensive"),
+				new Item(3137, "Dervish Blade", "2,3", "Defensive"),
+				new Item(3140, "Quicksilver Sash", "1,2,3,4", "Defensive"),
+				new Item(3222, "Mikael's Crucible", "1,2,3,4", "Defensive", 750),
+				new Item(3146, "Hextech Gunblade", "1,2,3,4", "Active"),
+				new Item(3074, "Ravenous Hydra", "1,2,3,4", "Active"),
+				new Item(3077, "Tiamat", "1,2,3,4", "Active"),
+				new Item(3144, "Bilgewater Cutlass", "1,2,3,4", "Active", 450),
+				new Item(3128, "Deathfire Grasp", "1,4", "Active", 750),
+				new Item(3153, "Blade of the Ruined King", "1,2,3,4", "Active", 450),
+				new Item(3142, "Youmuu's Ghostblade","1,2,3,4", "Active", 450),
+				new Item(3042,	"Muramana","1,4","Neutral"),
+				new Item(3043,	"Muramana","2,3","Neutral")
+			};
+				return list;
+			}
+			else
+			{
 				var list = new List<Item>
 			{
 				new Item(3139, "Mercurial Scimitar", "1,4", "Defensive"),
@@ -80,6 +102,8 @@ namespace AIO
 				new Item(3043,	"Muramana","2,3","Neutral")
 			};
 				return list;
+			}
+
 		}
 
 		private static void Check_MURAMANA()
@@ -148,6 +172,7 @@ namespace AIO
 			try
 			{
 				int attackrange;
+				
 				attackrange = (int)Orbwalking.GetRealAutoAttackRange(ObjectManager.Player);
 
 				var item = new Item(3142, "Youmuu's Ghostblade", "1,2,3,4", "Active");
@@ -424,7 +449,7 @@ namespace AIO
 					return;
 				const int range = 600;
 				if(Program.Menu.Item("useDot1").GetValue<bool>())
-					foreach(var enemy in Program.Helper.EnemyTeam.Where(hero => hero.IsValidTarget(range) && DamageLib.getDmg(hero, DamageLib.SpellType.IGNITE) >= hero.Health))
+					foreach(var enemy in Program.Helper.EnemyTeam.Where(hero => hero.IsValidTarget(range) && ObjectManager.Player.GetSummonerSpellDamage(hero,Damage.SummonerSpell.Ignite) >= hero.Health))
 					{
 						ObjectManager.Player.SummonerSpellbook.CastSpell(Dot, enemy);
 						return;

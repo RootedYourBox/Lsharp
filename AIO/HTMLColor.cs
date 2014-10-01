@@ -1,4 +1,4 @@
-﻿namespace AIO
+namespace AIO
 {
 	public static class HtmlColor
 	{

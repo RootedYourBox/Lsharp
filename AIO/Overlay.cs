@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
 
-namespace UltimateCarry
+namespace AIO
 {
 	class Overlay
 	{

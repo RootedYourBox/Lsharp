@@ -1,4 +1,4 @@
-﻿using LeagueSharp;
+using LeagueSharp;
 
 namespace AIO
 {
