@@ -281,7 +281,7 @@ namespace LeeSinSharp
         }
         public static void CastR_kill()
         {
-            foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsValidTarget(R.Range) && DamageLib.getDmg(hero, DamageLib.SpellType.R) >= hero.Health))
+            foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsValidTarget(R.Range) && ObjectManager.Player.GetSpellDamage(hero, SpellSlot.R) >= hero.Health))
             {
                 if(targetHasUlti(LockedTarget))
                     R.Cast(enemy);
@@ -294,7 +294,7 @@ namespace LeeSinSharp
                 return;
             if (!(LockedTarget != null))
                 return;
-            if (DamageLib.getDmg(LockedTarget, DamageLib.SpellType.R) <= LockedTarget.Health)
+            if (ObjectManager.Player.GetSpellDamage(LockedTarget, SpellSlot.R) <= LockedTarget.Health)
                 return;
             if (!R.IsReady())
                 return;
