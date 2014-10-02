@@ -52,9 +52,9 @@ namespace Riven
 			{
 				return;
 			}
-            if (Utility.Map.GetMap() == Utility.Map.MapType.SummonersRift)
+            if (Utility.Map.GetMap()._MapType == Utility.Map.MapType.SummonersRift)
                 IsSR = true;
-			Game.PrintChat("Riven - quangcha");
+			Game.PrintChat("Riven");
 			Q = new Spell(SpellSlot.Q, 260f);
 			RQ = new Spell(SpellSlot.Q, 325f);
 			Q3 = new Spell(SpellSlot.Q, 300f);

@@ -68,7 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activator.cs" />
     <Compile Include="AutoBushRevealer.cs" />
     <Compile Include="HTMLColor.cs" />
     <Compile Include="PotionManager.cs" />

@@ -34,7 +34,7 @@ namespace AIO
                 Menu.Item("FarmDelay").SetValue(new Slider(0, 0, 200));
             }
 
-			var activator = new Activator();
+			//var activator = new Activator();
 			var potionManager = new PotionManager();
 			var baseult = new BaseUlt();
 			var bushRevealer = new AutoBushRevealer();
