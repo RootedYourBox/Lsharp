@@ -73,7 +73,6 @@
     <Compile Include="PotionManager.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="BaseUlt.cs" />
-    <Compile Include="Chat.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

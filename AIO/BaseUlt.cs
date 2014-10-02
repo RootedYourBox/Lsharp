@@ -120,7 +120,7 @@ namespace AIO
 			if(compatibleChamp)
 				Game.OnGameUpdate += Game_OnGameUpdate;
 
-			Chat.Print("BaseUlt Loaded!");
+			Game.PrintChat("BaseUlt Loaded!");
 		}
 
 		private static void Game_OnGameUpdate(EventArgs args)

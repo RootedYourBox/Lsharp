@@ -24,7 +24,7 @@ namespace AIO
 		private static void Game_OnGameLoad(EventArgs args)
 		{
 			//AutoUpdater.InitializeUpdater();
-			//Chat.Print("AIO Version " + LocalVersion + " load ...");
+			Game.PrintChat("AIO Version " + LocalVersion + " load ...");
 			Helper = new Helper();
 			Menu = new Menu("AIO", "AIO", true);
             {
@@ -44,7 +44,7 @@ namespace AIO
 			
 					
 			Menu.AddToMainMenu();
-			Chat.Print("AIO loaded!");
+            Game.PrintChat("AIO loaded!");
 		}
 	}
 }
