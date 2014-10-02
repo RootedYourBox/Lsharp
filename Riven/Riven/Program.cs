@@ -180,7 +180,7 @@ namespace Riven
 					}
 					if (Buffmanager.windSlashReady)
 					{
-						float damage = R.GetDamage(target, DamageLib.StageType.Default);
+                        var damage = ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
 						if (damage >= target.Health && Vector3.Distance(ObjectManager.Player.ServerPosition, target.ServerPosition) <= R.Range)
 						{
 							R.Cast(target.ServerPosition, false);
@@ -286,29 +286,29 @@ namespace Riven
 			double num = 0.0;
 			if (Q.IsReady() && !Buffmanager.hasQStacks())
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.Q, DamageLib.StageType.Default);
+				num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q);
 			}
 			if (W.IsReady())
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.W, DamageLib.StageType.Default);
+                num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.W);
 			}
-			return num + DamageLib.getDmg(target, DamageLib.SpellType.AD, DamageLib.StageType.Default) * 4.0;
+			return num + ObjectManager.Player.GetAutoAttackDamage(target) * 4.0;
 		}
 		private static double GetRComboDamage(Obj_AI_Base target)
 		{
 			double num = 0.0;
 			if (Q.IsReady() && !Buffmanager.hasQStacks())
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.Q, DamageLib.StageType.Default);
+                num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q);
 			}
 			if (W.IsReady())
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.W, DamageLib.StageType.Default);
+                num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.W);
 			}
-			num += DamageLib.getDmg(target, DamageLib.SpellType.AD, DamageLib.StageType.Default) * 4.0;
+			num += ObjectManager.Player.GetAutoAttackDamage(target) * 4.0;
 			if (R.IsReady() && !Buffmanager.windSlashReady)
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.R, DamageLib.StageType.Default);
+				num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
 			}
 			return num;
 		}
@@ -317,15 +317,15 @@ namespace Riven
 			double num = 0.0;
 			if (Q.IsReady() && !Buffmanager.hasQStacks())
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.Q, DamageLib.StageType.Default);
+                num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q);
 			}
 			if (W.IsReady())
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.W, DamageLib.StageType.Default);
+                num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.W);
 			}
 			if (R.IsReady() && !Buffmanager.windSlashReady)
 			{
-				num += DamageLib.getDmg(target, DamageLib.SpellType.R, DamageLib.StageType.Default);
+                num += ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
 			}
 			return num;
 		}
