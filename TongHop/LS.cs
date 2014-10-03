@@ -39,6 +39,27 @@ namespace TongHop
 
 			var activatorMenu = new Menu("Activator", "Activator");
 			Activator.AddtoMenu(activatorMenu);
+            var loadbaseult = false;
+            switch (Player.ChampionName)
+            {
+                case "Ashe":
+                    loadbaseult = true;
+                    break;
+                case "Draven":
+                    loadbaseult = true;
+                    break;
+                case "Ezreal":
+                    loadbaseult = true;
+                    break;
+                case "jinx":
+                    loadbaseult = true;
+                    break;
+            }
+            if (loadbaseult)
+            {
+                var baseUltMenu = new Menu("BaseUlt", "BaseUlt");
+                BaseUlt.AddtoMenu(baseUltMenu);
+            }
 
 			//if(Utility.Map.GetMap()._MapType == Utility.Map.MapType.SummonersRift ||
 			//	Utility.Map.GetMap()._MapType == Utility.Map.MapType.TwistedTreeline)

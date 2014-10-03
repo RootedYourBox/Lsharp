@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activator.cs" />
+    <Compile Include="BaseUlt.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Orbwalker.cs" />
     <Compile Include="Program.cs" />

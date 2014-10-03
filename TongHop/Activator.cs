@@ -114,7 +114,7 @@ namespace TongHop
 				case Summoner.Smite: // Supported by Tarzan				
 					break;
 				case Summoner.Heal:
-					if(!LS.Menu.Item("act_heal_use").GetValue<bool>())
+                    if (!LS.Menu.Item("act_heal_use").GetValue<bool>() || Utility.InFountain())
 						break;
 					const int healrange = 700;
 					foreach(var friend in LS.AllHerosFriend.Where(hero => hero.IsValid && !hero.IsDead && hero.Distance(LS.Player) < healrange))
@@ -163,7 +163,7 @@ namespace TongHop
 					}
 					break;
 				case Summoner.Barrier:
-					if(!LS.Menu.Item("act_barrier_use").GetValue<bool>())
+                    if (!LS.Menu.Item("act_barrier_use").GetValue<bool>() || Utility.InFountain())
 						break;
 					healperzent = false;
 					healhealth = false;
@@ -636,6 +636,8 @@ namespace TongHop
 			{
 				try
 				{
+                    if (LS.Player.HasBuff("Recall") || Utility.InShopRange() || Utility.InFountain())
+                        return;
 					if(LS.Menu.Item("act_potionmanager_HealthPotion").GetValue<bool>())
 					{
 						if(GetPlayerHealthPercentage() <= LS.Menu.Item("act_potionmanager_HealthPercent").GetValue<Slider>().Value)
