@@ -39,22 +39,22 @@ namespace TongHop
 
 			var activatorMenu = new Menu("Activator", "Activator");
 			Activator.AddtoMenu(activatorMenu);
-            var loadbaseult = false;
-            switch (Player.ChampionName)
-            {
-                case "Ashe":
-                    loadbaseult = true;
-                    break;
-                case "Draven":
-                    loadbaseult = true;
-                    break;
-                case "Ezreal":
-                    loadbaseult = true;
-                    break;
-                case "jinx":
-                    loadbaseult = true;
-                    break;
-            }
+            var loadbaseult = true;
+            //switch (Player.ChampionName)
+            //{
+            //    case "Ashe":
+            //        loadbaseult = true;
+            //        break;
+            //    case "Draven":
+            //        loadbaseult = true;
+            //        break;
+            //   case "Ezreal":
+            //        loadbaseult = true;
+            //        break;
+            //    case "jinx":
+            //        loadbaseult = true;
+            //        break;
+            //}
             if (loadbaseult)
             {
                 var baseUltMenu = new Menu("BaseUlt", "BaseUlt");
