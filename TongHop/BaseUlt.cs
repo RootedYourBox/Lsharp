@@ -490,10 +490,7 @@ namespace TongHop
 								(75 + (source.Spellbook.GetSpell(SpellSlot.R).Level * 175)) + (1.0 * source.FlatMagicDamageMod),
 								source, enemy);
 					case "Draven":
-						return
-							CalcPhysicalDmg(
-								(75 + (source.Spellbook.GetSpell(SpellSlot.R).Level * 100)) +
-								(1.1 * source.FlatPhysicalDamageMod), source, enemy); // way to enemy
+                        return source.GetSpellDamage(enemy, SpellSlot.R);
 					case "Jinx":
 						double percentage =
 							CalcPhysicalDmg(
