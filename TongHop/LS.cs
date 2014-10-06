@@ -12,7 +12,7 @@ namespace TongHop
 		public static IEnumerable<Obj_AI_Hero> AllHeros = ObjectManager.Get<Obj_AI_Hero>();
 		public static IEnumerable<Obj_AI_Hero> AllHerosFriend = ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsAlly);
 		public static IEnumerable<Obj_AI_Hero> AllHerosEnemy = ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsEnemy);
-		
+        //public static Orbwalking.Orbwalker Orbwalker;
 		//public Champion Champion;
 		//public Orbwalker Orbwalker;
 
@@ -21,7 +21,7 @@ namespace TongHop
 		public LS()
 		{
 			Game.PrintChat("****  Tong Hop Loaded! ****");
-			Game.PrintChat("Beta version v 0.1");
+			Game.PrintChat("Beta version v 0.5");
 			//Game.PrintChat("This is a Beta version, not all is active,");
 			Game.PrintChat("***************************");
 
@@ -34,8 +34,8 @@ namespace TongHop
 			//var tsMenu = new Menu("Primes TargetSelector", "Primes_TS");
 			//TargetSelector.AddtoMenu(tsMenu);
 
-			var orbwalkMenu = new Menu("Orbwalker", "Orbwalker");
-			Orbwalker.AddtoMenu(orbwalkMenu);
+			//var orbwalkMenu = new Menu("Orbwalker", "Orbwalker");
+			//Orbwalker.AddtoMenu(orbwalkMenu);
 
 			var activatorMenu = new Menu("Activator", "Activator");
 			Activator.AddtoMenu(activatorMenu);
