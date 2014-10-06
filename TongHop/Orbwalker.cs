@@ -186,7 +186,7 @@ namespace TongHop
                     Player.IssueOrder(GameObjectOrder.HoldPosition, Player.ServerPosition);
                 return;
             }
-            if (position.Distance(PUC.Player.Position) < 200)
+            if (position.Distance(LS.Player.Position) < 200)
                 Player.IssueOrder(GameObjectOrder.MoveTo, position);
             else
             {
