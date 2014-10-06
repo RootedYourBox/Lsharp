@@ -170,26 +170,33 @@ namespace TongHop
 
 		private static void MoveTo(Vector3 position, float holdAreaRadius = -1)
 		{
-			var rnd = new Random();
-			var delay = rnd.Next(50, 100);
-			if(Environment.TickCount -LastMovement < delay)
-				return;
-			LastMovement = Environment.TickCount;
+            var rnd = new Random();
+            var delay = rnd.Next(50, 100);
+            if (Environment.TickCount - LastMovement < delay)
+                return;
+            LastMovement = Environment.TickCount;
 
-			if (!CanMove())
-				return;
-			if(holdAreaRadius < 0)
-				holdAreaRadius = LS.Menu.Item("orb_HoldPos").GetValue<Slider>().Value;
-			if(Player.ServerPosition.Distance(position) < holdAreaRadius)
-			{
-				if(Player.Path.Count() > 1)
-					Player.IssueOrder(GameObjectOrder.HoldPosition, Player.ServerPosition);
-				return;
-			}
-			var point = Player.ServerPosition +
-			200 * (position.To2D() - Player.ServerPosition.To2D()).Normalized().To3D();
-			Player.IssueOrder(GameObjectOrder.MoveTo, point);
-		}
+            if (!CanMove())
+                return;
+            if (holdAreaRadius < 0)
+                holdAreaRadius = LS.Menu.Item("orb_HoldPos").GetValue<Slider>().Value;
+            if (Player.ServerPosition.Distance(position) < holdAreaRadius)
+            {
+                if (Player.Path.Count() > 1)
+                    Player.IssueOrder(GameObjectOrder.HoldPosition, Player.ServerPosition);
+                return;
+            }
+            if (position.Distance(PUC.Player.Position) < 200)
+                Player.IssueOrder(GameObjectOrder.MoveTo, position);
+            else
+            {
+                var point = Player.ServerPosition +
+                200 * (position.To2D() - Player.ServerPosition.To2D()).Normalized().To3D();
+                Player.IssueOrder(GameObjectOrder.MoveTo, point);
+            }
+
+        }
+
 
 		private static Obj_AI_Base GetPossibleTarget()
 		{
