@@ -10,7 +10,7 @@ using Color = System.Drawing.Color;
 
 #endregion
 
-namespace DProject
+namespace MidSeries
 {
     internal class Syndra
     {

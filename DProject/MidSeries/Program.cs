@@ -2,7 +2,7 @@
 using LeagueSharp.Common;
 using System;
 
-namespace DProject
+namespace MidSeries
 {
     class Program
     {

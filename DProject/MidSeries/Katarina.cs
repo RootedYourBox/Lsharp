@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Color = System.Drawing.Color;
 
-namespace DProject
+namespace MidSeries
 {
     internal class Katarina
     {

@@ -9,7 +9,7 @@ using SharpDX;
 
 #endregion
 
-namespace DProject
+namespace MidSeries
 {
     public static class OrbManager
     {

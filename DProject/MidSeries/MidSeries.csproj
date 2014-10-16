@@ -7,8 +7,8 @@
     <ProjectGuid>{01F1D553-8862-4413-A120-DA147116DC4D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DProject</RootNamespace>
-    <AssemblyName>DProject</AssemblyName>
+    <RootNamespace>MidSeries</RootNamespace>
+    <AssemblyName>MidSeries</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
