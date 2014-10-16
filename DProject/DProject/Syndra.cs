@@ -177,6 +177,7 @@ namespace DProject
             Interrupter.OnPossibleToInterrupt += Interrupter_OnPossibleToInterrupt;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
+            
             Game.PrintChat("Config Syndra loaded! By ndd305");
 
 

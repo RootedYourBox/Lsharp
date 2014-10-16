@@ -23,7 +23,7 @@ namespace DProject
                     //PrintMessage("Syndra loaded!");
                     break;
                 default:
-                   PrintMessage(ChampionName);
+                   PrintMessage("Chưa hỗ trợ champion " + ChampionName);
                     break;
             }
         }
