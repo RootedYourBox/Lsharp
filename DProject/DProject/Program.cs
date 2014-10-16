@@ -22,6 +22,10 @@ namespace DProject
                     new Syndra();
                     //PrintMessage("Syndra loaded!");
                     break;
+                case "Katarina":
+                    new Katarina();
+                    //PrintMessage("Syndra loaded!");
+                    break;
                 default:
                    PrintMessage("Chưa hỗ trợ champion " + ChampionName);
                     break;
