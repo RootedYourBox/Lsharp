@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Color = System.Drawing.Color;
 
-// By iSnorflake
 namespace DProject
 {
     internal class Katarina
@@ -39,7 +38,6 @@ namespace DProject
         }
       
 
-        #region OnGameLoad
         static void Game_OnGameLoad()
         {
             _player = ObjectManager.Player;
@@ -143,9 +141,7 @@ namespace DProject
             Orbwalker.SetAttack(false);
             Utility.DelayAction.Add(1, () => IsChanneling = false);
         }
-        #endregion
 
-        #region BeforeAttack
         static void LXOrbwalker_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
         {
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Magical);
@@ -153,9 +149,9 @@ namespace DProject
             if (!Config.Item("ProcQ").GetValue<bool>()) return;
             Q.CastOnUnit(target, Config.Item("QNFE").GetValue<bool>());
         }
-        #endregion
 
-        #region OnGameUpdate
+
+
         private static void Game_OnGameUpdate(EventArgs args)
         {
             //SkinManager.Update();
@@ -228,9 +224,7 @@ namespace DProject
             }
         }
 
-        #endregion
 
-        #region Farm
         private static void Farm() // Credits TC-CREW
         {
             if (!Orbwalking.CanMove(40)) return;
@@ -252,9 +246,7 @@ namespace DProject
                 W.Cast();
             }
         }
-        #endregion
 
-        #region WaveClear
         public static void WaveClear()
         {
             if (!Orbwalking.CanMove(40)) return;
@@ -276,9 +268,7 @@ namespace DProject
                 W.Cast();
             }
         }
-        #endregion
 
-        #region Combo
         private static void Combo()
         {
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Magical);
@@ -306,7 +296,7 @@ namespace DProject
             
 
         }
-        #endregion
+
 
         private static void Harras()
         {
@@ -322,7 +312,7 @@ namespace DProject
                 W.Cast();
             
         }
-        #region OnDraw
+
         private static void Drawing_OnDraw(EventArgs args)
         {
             foreach (var spell in SpellList)
@@ -335,9 +325,7 @@ namespace DProject
             }
             //Drawing tempoarily disabled
         }
-        #endregion
 
-        #region Killsteal
         private static void Killsteal() // Creds to TC-Crew
         {
             foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsValidTarget(Q.Range)).Where(hero => Q.IsReady() && hero.Distance(ObjectManager.Player) <= Q.Range && _player.GetSpellDamage(hero, SpellSlot.Q) >= hero.Health))
@@ -346,9 +334,7 @@ namespace DProject
             }
         }
 
-        #endregion
 
-        #region Escape
         private static void Escape() // HUGE CREDITS TO FLUXY FOR FIXING THIS
         {
             var basePos = _player.Position.To2D();
@@ -377,9 +363,7 @@ namespace DProject
                 ward.UseItem(finalVector.To3D());
             }
         }
-        #endregion
 
-        #region Ward jump stuff
 
         private static SpellDataInst GetItemSpell(InventorySlot invSlot)
         {
@@ -398,9 +382,7 @@ namespace DProject
             }
             return null;
         }
-        #endregion
-
-        #region GetDamage
+  
 
         public static double CalculateDamageDrawing(Obj_AI_Base target)
         {
