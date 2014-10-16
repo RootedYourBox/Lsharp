@@ -26,6 +26,10 @@ namespace MidSeries
                     new Katarina();
                     //PrintMessage("Syndra loaded!");
                     break;
+                case "Ahri":
+                    new Ahri();
+                    //PrintMessage("Syndra loaded!");
+                    break;
                 default:
                    PrintMessage("Chưa hỗ trợ champion " + ChampionName);
                     break;

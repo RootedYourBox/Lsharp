@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ahri.cs" />
     <Compile Include="Katarina.cs" />
     <Compile Include="OrbManager.cs" />
     <Compile Include="Program.cs" />

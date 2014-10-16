@@ -59,7 +59,7 @@ namespace MidSeries
             E.SetSkillshot(0.25f, (float)(45 * 0.5), 2500f, false, SkillshotType.SkillshotCircle);
             EQ.SetSkillshot(float.MaxValue, 55f, 2100f, false, SkillshotType.SkillshotCircle);
             //Base menu
-            Config = new Menu("DProject", "DProject", true);
+            Config = new Menu("MidSeries - " + Name, "MidSeries", true);
             //Orbwalker and menu
             var orbwalkerMenu = new Menu("Orbwalker", "Orbwalker");
             Orbwalker = new Orbwalking.Orbwalker(orbwalkerMenu);
@@ -178,7 +178,7 @@ namespace MidSeries
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             
-            Game.PrintChat("Config Syndra loaded! By ndd305");
+            Game.PrintChat("Config Syndra loaded!");
 
 
         }

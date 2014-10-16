@@ -53,7 +53,7 @@ namespace MidSeries
             SpellList.Add(E);
             SpellList.Add(R);
             //Create the menu
-            Config = new Menu("DProject", "DProject", true);
+            Config = new Menu("MidSeries - " + ObjectManager.Player.SkinName, "MidSeries", true);
 
             //Orbwalker submenu            
             var orbwalkerMenu = new Menu("Orbwalker", "Orbwalker");
@@ -123,6 +123,7 @@ namespace MidSeries
             Orbwalking.BeforeAttack += LXOrbwalker_BeforeAttack;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Game.OnGameSendPacket += Game_OnGameSendPacket;
+            Game.PrintChat("Config Katarina loaded!");
 
         }
 
