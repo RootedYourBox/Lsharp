@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using LeagueSharp.Common;
 using SharpDX;
 
-namespace BaseUlt2
+namespace BaseUlt
 {
     class RecallInfo
     {

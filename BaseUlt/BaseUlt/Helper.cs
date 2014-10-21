@@ -5,7 +5,7 @@ using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 
-namespace BaseUlt2
+namespace BaseUlt
 {
     class EnemyInfo
     {

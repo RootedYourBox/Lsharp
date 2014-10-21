@@ -8,9 +8,12 @@ using SharpDX;
 using Collision = LeagueSharp.Common.Collision;
 using Color = System.Drawing.Color;
 
-
-namespace BaseUlt2
+namespace BaseUlt
 {
+    /*
+     * - Exclude specific champiosn from being baseulted
+     * */
+
     class BaseUlt
     {
         private static Menu _menu;
@@ -29,15 +32,18 @@ namespace BaseUlt2
             {"Ezreal", new UltData { SpellStage = 0, DamageMultiplicator = 0.7f, Width = 160f, Delay = 1000f/1000f, Speed = 2000f, Range = 20000f, Collision = false}},
             {"Karthus", new UltData { SpellStage = 0, DamageMultiplicator = 1f, Width = 0f, Delay = 3125f/1000f, Speed = 0f, Range = 20000f, Collision = false}}
         };
+
         public BaseUlt()
         {
-            _menu = new Menu("BaseUlt","BaseUlt",true);
-            _menu.AddItem(new MenuItem("showRecalls","Show Recalls").SetValue(true));
+            (_menu = new Menu("BaseUlt2", "BaseUlt", true)).AddToMainMenu();
+            _menu.AddItem(new MenuItem("showRecalls", "Show Recalls").SetValue(true));
             _menu.AddItem(new MenuItem("baseUlt", "Base Ult").SetValue(true));
-            _menu.AddItem(new MenuItem("extractDelay","Extract Delay").SetValue(new Slider(0,-2000,2000)));
-            _menu.AddItem(new MenuItem("panicKey", "Panic key (hold for disable)").SetValue(new KeyBind(32, KeyBindType.Press))); // 32 == space
-            _menu.AddItem(new MenuItem("regardlessKey", "No timelimit (hold)").SetValue(new KeyBind(17, KeyBindType.Press))); // 17 == ctrl
-            var teamUlt = _menu.AddSubMenu(new Menu("Team BaseUlt Friend", "TeaUlt"));
+            _menu.AddItem(new MenuItem("extraDelay", "Extra Delay").SetValue(new Slider(0, -2000, 2000)));
+            _menu.AddItem(new MenuItem("panicKey", "Panic key (hold for disable)").SetValue(new KeyBind(32, KeyBindType.Press))); //32 == space
+            _menu.AddItem(new MenuItem("regardlessKey", "No timelimit (hold)").SetValue(new KeyBind(17, KeyBindType.Press))); //17 == ctrl
+
+            var teamUlt = _menu.AddSubMenu(new Menu("Team Baseult Friends", "TeamUlt"));
+
             var compatibleChamp = IsCompatibleChamp(ObjectManager.Player.ChampionName);
 
             if (compatibleChamp)
@@ -292,4 +298,3 @@ namespace BaseUlt2
         }
     }
 }
-
