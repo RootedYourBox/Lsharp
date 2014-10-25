@@ -35,7 +35,7 @@ namespace BaseUlt
 
         public BaseUlt()
         {
-            (_menu = new Menu("BaseUlt2", "BaseUlt", true)).AddToMainMenu();
+            (_menu = new Menu("BaseUlt", "BaseUlt", true)).AddToMainMenu();
             _menu.AddItem(new MenuItem("showRecalls", "Show Recalls").SetValue(true));
             _menu.AddItem(new MenuItem("baseUlt", "Base Ult").SetValue(true));
             _menu.AddItem(new MenuItem("extraDelay", "Extra Delay").SetValue(new Slider(0, -2000, 2000)));
@@ -67,7 +67,7 @@ namespace BaseUlt
             if (compatibleChamp)
                 Game.OnGameUpdate += Game_OnGameUpdate;
 
-            Game.PrintChat("<font color=\"#1eff00\">BaseUlt2 by Beaving</font> - <font color=\"#00BFFF\">Loaded</font>");
+            Game.PrintChat("<font color=\"#1eff00\">BaseUlt2</font> - <font color=\"#00BFFF\">Loaded</font>");
         }
 
         private static void Game_OnGameUpdate(EventArgs args)
