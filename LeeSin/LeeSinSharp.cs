@@ -106,7 +106,7 @@ namespace LeeSinSharp
             LeeSin.CastR_kill();
             target = SimpleTs.GetTarget(1500, SimpleTs.DamageType.Physical);
             LeeSin.checkLock(target);
-            LeeSin.orbwalker.SetAttacks(true);
+            LeeSin.orbwalker.SetAttack(true);
             if (Config.Item("ActiveWard").GetValue<KeyBind>().Active)
             {
                 LeeSin.wardJump(Game.CursorPos.To2D());
