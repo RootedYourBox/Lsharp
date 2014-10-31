@@ -3,7 +3,7 @@
 using System;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SharpDX;
+//using SharpDX;
 
 #endregion
 
@@ -28,7 +28,7 @@ namespace Mid_TF
     public static class CardSelector
     {
         public static Cards Select;
-        public static SelectStatus Status { get; set; }
+        //public static SelectStatus Status { get; set; }
         public static int LastWSent = 0;
         public static int LastSendWSent = 0;
 
@@ -38,6 +38,8 @@ namespace Mid_TF
             Game.OnGameProcessPacket += Game_OnGameProcessPacket;
             Game.OnGameUpdate += Game_OnGameUpdate;
         }
+
+        public static SelectStatus Status { get; set; }
 
         private static void SendWPacket()
         {
@@ -54,7 +56,9 @@ namespace Mid_TF
                 if (Environment.TickCount - LastWSent > 200)
                 {
                     if (ObjectManager.Player.Spellbook.CastSpell(SpellSlot.W, ObjectManager.Player))
+                    {
                         LastWSent = Environment.TickCount;
+                    }
                 }
             }
         }
@@ -62,11 +66,16 @@ namespace Mid_TF
 
         private static void Game_OnGameUpdate(EventArgs args)
         {
-            if ((ObjectManager.Player.Spellbook.CanUseSpell(SpellSlot.W) == SpellState.Ready && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name == "PickACard" && (Status != SelectStatus.Selecting || Environment.TickCount - LastWSent > 500))
+            if ((ObjectManager.Player.Spellbook.CanUseSpell(SpellSlot.W) == SpellState.Ready &&
+                 ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name == "PickACard" &&
+                 (Status != SelectStatus.Selecting || Environment.TickCount - LastWSent > 500)) ||
+                ObjectManager.Player.IsDead)
+            {
+                Status = SelectStatus.Ready;
+            }
 
-                || ObjectManager.Player.IsDead) Status = SelectStatus.Ready;
-
-            if (ObjectManager.Player.Spellbook.CanUseSpell(SpellSlot.W) == SpellState.Cooldown && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name == "PickACard")
+            if (ObjectManager.Player.Spellbook.CanUseSpell(SpellSlot.W) == SpellState.Cooldown &&
+                ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name == "PickACard")
             {
                 Select = Cards.None;
                 Status = SelectStatus.Cooldown;
@@ -79,24 +88,31 @@ namespace Mid_TF
 
         private static void Game_OnGameProcessPacket(GamePacketEventArgs args)
         {
-            if (args.PacketData[0] == 0x17)
+            //if (args.PacketData[0] == 0x17)
+            if (args.PacketData[0] == Packet.S2C.ChangeSpellSlot.Header)
             {
-                var packet = new GamePacket(args.PacketData);
-                packet.Position = 1;
-                if (packet.ReadInteger() == ObjectManager.Player.NetworkId)
+                var dp = Packet.S2C.ChangeSpellSlot.Decoded(args.PacketData);
+                if (dp.Unit.IsValid && dp.Unit.IsMe && dp.Slot == SpellSlot.W)
                 {
-                    packet.Position = 11;
-                    var id = packet.ReadByte();
-                    switch (id)
+                    switch (dp.SpellString)
                     {
-                        case 0x42:
-                            if (Select == Cards.Blue) SendWPacket();
+                        case "BlueCardLock":
+                            if (Select == Cards.Blue)
+                            {
+                                SendWPacket();
+                            }
                             break;
-                        case 0x47:
-                            if (Select == Cards.Yellow) SendWPacket();
+                        case "GoldCardLock":
+                            if (Select == Cards.Yellow)
+                            {
+                                SendWPacket();
+                            }   
                             break;
-                        case 0x52:
-                            if (Select == Cards.Red) SendWPacket();
+                         case "RedCardlock":
+                            if (Select == Cards.Red)
+                            {
+                                SendWPacket();
+                            }
                             break;
                     }
                 }
