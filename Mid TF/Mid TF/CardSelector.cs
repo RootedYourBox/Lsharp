@@ -108,7 +108,7 @@ namespace Mid_TF
                                 SendWPacket();
                             }   
                             break;
-                         case "RedCardlock":
+                         case "RedCardLock":
                             if (Select == Cards.Red)
                             {
                                 SendWPacket();

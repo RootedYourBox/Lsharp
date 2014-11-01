@@ -322,7 +322,7 @@ namespace Mid_TF
                 case Orbwalking.OrbwalkingMode.LaneClear:
                     if (ObjectManager.Player.Mana / ObjectManager.Player.MaxMana * 100 <= 65)
                         CardSelector.StartSelecting(Cards.Blue);
-                    if (Config.Item("QFarm").GetValue<bool>() && ObjectManager.Player.Mana / ObjectManager.Player.MaxMana * 100 >= 60)
+                    if (Config.Item("QFarm").GetValue<bool>() && ObjectManager.Player.Mana / ObjectManager.Player.MaxMana * 100 >= 70)
                         Cast_BasicLineSkillshot_AOE_Farm(Q);
                     break;
                 case Orbwalking.OrbwalkingMode.LastHit:
