@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -25,6 +26,7 @@ namespace GetTokenGG
 
         DataTable dt = new DataTable();
         BindingSource bs = new BindingSource();
+        int i = 0;
 
         #endregion
 
@@ -53,6 +55,7 @@ namespace GetTokenGG
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            //GarenaPlus();
             this.Close();
         }
 
@@ -141,12 +144,16 @@ namespace GetTokenGG
         private void GetToken()
         {
             int processid = 0;
-            Process[] processlist = Process.GetProcesses();
-            foreach (Process theprocess in processlist)
+            try
             {
-                if (theprocess.ProcessName == "lol")
-                    //Console.WriteLine(theprocess.ProcessName + "-" + theprocess.Id);
-                    processid = theprocess.Id;
+                foreach (Process proc in Process.GetProcessesByName("lol"))
+                {
+                    processid = proc.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
             string wmiQuery = string.Format("select Name, CommandLine from Win32_Process where ProcessID='{0}'", processid);
@@ -155,7 +162,6 @@ namespace GetTokenGG
             foreach (ManagementObject process in processList)
             {
                 string result = process["CommandLine"] == null ? "" : process["CommandLine"].ToString();
-                //Console.WriteLine("{0} - {1}", process["Name"], process["CommandLine"]);
                 string Username = cmbUsername.Text;
                 string UID = cmbUID.Text;
                 string Queuetype = cmbQueueType.Text;
@@ -163,7 +169,23 @@ namespace GetTokenGG
                 StreamWriter wr = new StreamWriter(@"accounts.txt");
                 wr.WriteLine(account);
                 wr.Close();
-                MessageBox.Show("Done!");
+                MessageBox.Show("Done!", Username);
+            }
+        }
+
+        private void GarenaPlus()
+        {
+            try
+            {
+                foreach (Process proc in Process.GetProcessesByName("GarenaMessenger"))
+                {
+                    //MessageBox.Show(proc.ProcessName + "-" + proc.Id);
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -171,6 +193,7 @@ namespace GetTokenGG
         {
             LoadUsername();
             LoadUID();
+            timeBug.Enabled = true;
         }
 
 
@@ -192,6 +215,27 @@ namespace GetTokenGG
         private void cmbUID_SelectedIndexChanged(object sender, EventArgs e)
         {
             chkRemember.Checked = true;
+        }
+
+
+        private void timeBug_Tick(object sender, EventArgs e)
+        {
+            
+            i++;
+            if (i == 60) i = 0;
+            this.Text = "Get Garena Token by Banana " + i.ToString();
+            try
+            {
+                foreach (Process proc in Process.GetProcessesByName("BsSndRpt"))
+                {
+                    proc.Kill();
+                    GarenaPlus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 

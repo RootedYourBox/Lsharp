@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGetToken));
             this.label1 = new System.Windows.Forms.Label();
             this.cmbUsername = new System.Windows.Forms.ComboBox();
@@ -38,7 +39,7 @@
             this.cmbQueueType = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
-            this.cmbCheck = new System.Windows.Forms.ComboBox();
+            this.timeBug = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -136,20 +137,16 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // cmbCheck
+            // timeBug
             // 
-            this.cmbCheck.FormattingEnabled = true;
-            this.cmbCheck.Location = new System.Drawing.Point(357, 6);
-            this.cmbCheck.Name = "cmbCheck";
-            this.cmbCheck.Size = new System.Drawing.Size(90, 21);
-            this.cmbCheck.TabIndex = 10;
+            this.timeBug.Interval = 200;
+            this.timeBug.Tick += new System.EventHandler(this.timeBug_Tick);
             // 
             // frmGetToken
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 111);
-            this.Controls.Add(this.cmbCheck);
+            this.ClientSize = new System.Drawing.Size(304, 111);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbQueueType);
@@ -182,7 +179,7 @@
         private System.Windows.Forms.ComboBox cmbQueueType;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.ComboBox cmbCheck;
+        private System.Windows.Forms.Timer timeBug;
     }
 }
 
