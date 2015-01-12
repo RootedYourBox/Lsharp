@@ -40,6 +40,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.timeBug = new System.Windows.Forms.Timer(this.components);
+            this.lblDone = new System.Windows.Forms.Label();
+            this.Clock = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -85,7 +87,7 @@
             this.chkRemember.AutoSize = true;
             this.chkRemember.Checked = true;
             this.chkRemember.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRemember.Location = new System.Drawing.Point(76, 87);
+            this.chkRemember.Location = new System.Drawing.Point(44, 87);
             this.chkRemember.Name = "chkRemember";
             this.chkRemember.Size = new System.Drawing.Size(77, 17);
             this.chkRemember.TabIndex = 4;
@@ -139,14 +141,32 @@
             // 
             // timeBug
             // 
+            this.timeBug.Enabled = true;
             this.timeBug.Interval = 200;
             this.timeBug.Tick += new System.EventHandler(this.timeBug_Tick);
+            // 
+            // lblDone
+            // 
+            this.lblDone.AutoSize = true;
+            this.lblDone.ForeColor = System.Drawing.Color.Red;
+            this.lblDone.Location = new System.Drawing.Point(159, 88);
+            this.lblDone.Name = "lblDone";
+            this.lblDone.Size = new System.Drawing.Size(36, 13);
+            this.lblDone.TabIndex = 9;
+            this.lblDone.Text = "Done!";
+            this.lblDone.Visible = false;
+            // 
+            // Clock
+            // 
+            this.Clock.Interval = 2000;
+            this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
             // frmGetToken
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 111);
+            this.ClientSize = new System.Drawing.Size(302, 111);
+            this.Controls.Add(this.lblDone);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbQueueType);
@@ -180,6 +200,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Timer timeBug;
+        private System.Windows.Forms.Label lblDone;
+        private System.Windows.Forms.Timer Clock;
     }
 }
 

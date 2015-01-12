@@ -19,7 +19,7 @@ namespace GetTokenGG
     public partial class frmGetToken : Form
     {
         #region Fields
-        SQLiteConnection conn = new SQLiteConnection("Data source = account.db");
+        SQLiteConnection conn = new SQLiteConnection("Data source = config/account.db");
         SQLiteCommand cmd = new SQLiteCommand();
 
         SQLiteDataAdapter adapter = new SQLiteDataAdapter();
@@ -27,6 +27,7 @@ namespace GetTokenGG
         DataTable dt = new DataTable();
         BindingSource bs = new BindingSource();
         int i = 0;
+        int j = 0;
 
         #endregion
 
@@ -45,17 +46,16 @@ namespace GetTokenGG
             {
                 DelData();
             }
-
-            GetToken();
-           
-            LoadUsername();
-            LoadUID();
+            StartLOL();
+            //GetToken();
+            //LoadUsername();
+            //LoadUID();
             
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            //GarenaPlus();
+            //StartLOL();
             this.Close();
         }
 
@@ -166,34 +166,24 @@ namespace GetTokenGG
                 string UID = cmbUID.Text;
                 string Queuetype = cmbQueueType.Text;
                 string account = string.Format("{0}|{1}|{2}|{3}", Username, UID, result.Trim(), Queuetype);
-                StreamWriter wr = new StreamWriter(@"accounts.txt");
+                StreamWriter wr = new StreamWriter(@"config/accounts.txt");
                 wr.WriteLine(account);
                 wr.Close();
-                MessageBox.Show("Done!", Username);
+                lblDone.Visible = true;
+                Clock.Enabled = true;
+                foreach (Process proc1 in Process.GetProcessesByName("LolClient"))
+                {
+                    proc1.Kill();
+                }
             }
         }
 
-        private void GarenaPlus()
-        {
-            try
-            {
-                foreach (Process proc in Process.GetProcessesByName("GarenaMessenger"))
-                {
-                    //MessageBox.Show(proc.ProcessName + "-" + proc.Id);
-                   
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
 
         private void frmGetToken_Load(object sender, EventArgs e)
         {
             LoadUsername();
             LoadUID();
-            timeBug.Enabled = true;
         }
 
 
@@ -216,6 +206,31 @@ namespace GetTokenGG
         {
             chkRemember.Checked = true;
         }
+        
+        private void StartLOL()
+        {
+            System.Diagnostics.Process.Start("auto.exe");
+            CheckClient();
+            System.Diagnostics.Process.Start("RitoBot.exe");
+        }
+
+        
+
+        private void CheckClient()
+        {
+            int Lol = 0;
+            while ( Lol == 0 )
+            {
+                Process[] processes = Process.GetProcessesByName("LolClient");
+                if ( processes.Length > 0 )
+                {
+                    Lol = 1;
+                }
+                
+            }
+            GetToken();
+                
+        }
 
 
         private void timeBug_Tick(object sender, EventArgs e)
@@ -229,13 +244,25 @@ namespace GetTokenGG
                 foreach (Process proc in Process.GetProcessesByName("BsSndRpt"))
                 {
                     proc.Kill();
-                    GarenaPlus();
+                    foreach (Process proc1 in Process.GetProcessesByName("RitoBot"))
+                    {
+                        proc1.Kill();
+                    }
+                    
+                    StartLOL();
                 }
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Clock_Tick(object sender, EventArgs e)
+        {
+            Clock.Enabled = false;
+            lblDone.Visible = false;
         }
 
 
