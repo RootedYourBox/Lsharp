@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region Using
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Management;
 using System.Data.SQLite;
+using System.Security.Cryptography;
+
+#endregion
 
 namespace GetTokenGG
 {
@@ -21,13 +26,12 @@ namespace GetTokenGG
         #region Fields
         SQLiteConnection conn = new SQLiteConnection("Data source = config/account.db");
         SQLiteCommand cmd = new SQLiteCommand();
-
         SQLiteDataAdapter adapter = new SQLiteDataAdapter();
 
         DataTable dt = new DataTable();
         BindingSource bs = new BindingSource();
-        int i = 0;
-        int j = 0;
+        Process procID;
+        //int j = 0;
 
         #endregion
 
@@ -36,29 +40,8 @@ namespace GetTokenGG
             InitializeComponent();
         }
 
-        private void btnGet_Click(object sender, EventArgs e)
-        {
-            if (chkRemember.Checked == true)
-            {
-                SaveData();
-            }
-            else
-            {
-                DelData();
-            }
-            StartLOL();
-            //GetToken();
-            //LoadUsername();
-            //LoadUID();
-            
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            //StartLOL();
-            this.Close();
-        }
-
+        #region Data
+        //-----------------------------------------------------------------------------------------------------------------
         private void DelData()
         {
             conn.Open();
@@ -76,7 +59,7 @@ namespace GetTokenGG
         {
             if (CheckData(cmbUsername.Text) || CheckData(cmbUID.Text))
             {
-                cmd.CommandText = "update account set Username = '" + cmbUsername.Text + "', UID = '" + cmbUID.Text + "' Where Username = '" + cmbUsername + "'";
+                cmd.CommandText = "update account set Username = '" + cmbUsername.Text + "', UID = '" + cmbUID.Text + "' Where Username = '" + cmbUsername.Text + "'";
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -95,12 +78,12 @@ namespace GetTokenGG
             conn.Open();
             cmd.CommandText = ("Select * From account where Username = '" + Name + "'");
             SQLiteDataReader dr = cmd.ExecuteReader();
-            
+
             if (dr.Read())
-                { Check = true; }
+            { Check = true; }
             else
-                { Check = false; }
-            
+            { Check = false; }
+
             dr.Close();
             conn.Close();
             return Check;
@@ -108,7 +91,7 @@ namespace GetTokenGG
 
         private void GetData(SQLiteCommand sql)
         {
-            
+
             cmd.Connection = conn;
             adapter.SelectCommand = cmd;
             cmd.CommandText = sql.CommandText;
@@ -117,29 +100,104 @@ namespace GetTokenGG
             adapter.Fill(dt);
             bs.DataSource = dt;
 
-            
+
         }
-        private void LoadUsername()
+        //==============================================================================================================
+        #endregion 
+
+        #region Event
+
+        private void btnRun_Click(object sender, EventArgs e)
         {
-            SQLiteCommand u_sql = new SQLiteCommand();
-            u_sql.CommandText = "select * from account";
-            GetData(u_sql);
-            cmbUsername.DataSource = bs;
-            cmbUsername.DisplayMember = "Username";
-            cmbUsername.ValueMember = "ID";
-
+            if (chkRemember.Checked == true)
+            {
+                SaveData();
+            }
+            else
+            {
+                DelData();
+            }
+            StartLOL();
+            //LoadUsername();
+            //LoadUID();
         }
 
-        private void LoadUID()
+        private void btnGet_Click(object sender, EventArgs e)
         {
-            SQLiteCommand u_sql = new SQLiteCommand();
-            u_sql.CommandText = "select * from account";
-            GetData(u_sql);
-            cmbUID.DataSource = bs;
-            cmbUID.DisplayMember = "UID";
-            cmbUID.ValueMember = "ID";
+            if (chkRemember.Checked == true)
+            {
+                SaveData();
+            }
+            else
+            {
+                DelData();
+            }
+            GetToken();
         }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void frmGetToken_Load(object sender, EventArgs e)
+        {
+            LoadUsername();
+            LoadUID();
+        }
+
+        private void cmbUsername_TextUpdate(object sender, EventArgs e)
+        {
+            chkRemember.Checked = false;
+        }
+
+        private void cmbUID_TextUpdate(object sender, EventArgs e)
+        {
+            chkRemember.Checked = false;
+        }
+
+        private void cmbUsername_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chkRemember.Checked = true;
+        }
+
+        private void cmbUID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chkRemember.Checked = true;
+        }
+
+        private void timeBug_Tick(object sender, EventArgs e)
+        {
+            /*
+            i++;
+            if (i == 60) i = 0;
+            this.Text = "Get Garena Token by Banana " + i.ToString();*/
+            if (IsOpenProc("BsSndRpt"))
+            {
+                foreach (Process proc in Process.GetProcessesByName("BsSndRpt"))
+                {
+                    proc.Kill();
+                    if (IsOpenProc("RitoBot"))
+                    {
+                        foreach (Process proc1 in Process.GetProcessesByName("RitoBot"))
+                        {
+                            proc1.Kill();
+                        }
+                    }
+                }
+                StartLOL();
+            }
+        }
+
+        private void Clock_Tick(object sender, EventArgs e)
+        {
+            Clock.Enabled = false;
+            lblDone.Visible = false;
+        }
+
+        #endregion
+
+        #region Func
 
         private void GetToken()
         {
@@ -171,102 +229,127 @@ namespace GetTokenGG
                 wr.Close();
                 lblDone.Visible = true;
                 Clock.Enabled = true;
-                foreach (Process proc1 in Process.GetProcessesByName("LolClient"))
-                {
-                    proc1.Kill();
-                }
             }
         }
 
-        
-
-        private void frmGetToken_Load(object sender, EventArgs e)
+        private string Encrypt(string toEncrypt, bool useHashing)
         {
-            LoadUsername();
-            LoadUID();
+            byte[] keyArray;
+            byte[] toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
+            if (useHashing)
+            {
+                var hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes("banana"));
+            }
+            else keyArray = Encoding.UTF8.GetBytes("banana");
+            var tdes = new TripleDESCryptoServiceProvider
+            {
+                Key = keyArray,
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            };
+            ICryptoTransform cTransform = tdes.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
 
-
-        private void cmbUsername_TextUpdate(object sender, EventArgs e)
+        private string Decrypt(string toDecrypt, bool useHashing)
         {
-            chkRemember.Checked = false;
+            byte[] keyArray;
+            byte[] toEncryptArray = Convert.FromBase64String(toDecrypt);
+            if (useHashing)
+            {
+                var hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes("banana"));
+            }
+            else keyArray = Encoding.UTF8.GetBytes("banana");
+            var tdes = new TripleDESCryptoServiceProvider
+            {
+                Key = keyArray,
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            };
+            ICryptoTransform cTransform = tdes.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            return Encoding.UTF8.GetString(resultArray);
         }
 
-        private void cmbUID_TextUpdate(object sender, EventArgs e)
-        {
-            chkRemember.Checked = false;
-        }
-
-        private void cmbUsername_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            chkRemember.Checked = true;
-        }
-
-        private void cmbUID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            chkRemember.Checked = true;
-        }
-        
         private void StartLOL()
         {
             System.Diagnostics.Process.Start("auto.exe");
-            CheckClient();
+            CheckProcess("LolClient");
+            GetToken();
+            foreach (Process proc1 in Process.GetProcessesByName("LolClient"))
+            {
+                proc1.Kill();
+            }
             System.Diagnostics.Process.Start("RitoBot.exe");
+            //UpdateProcID();
         }
 
-        
+        private void UpdateProcID()
+        {
+            CheckProcess("League of Legends");
+            foreach (Process proc in Process.GetProcessesByName("League of Legends"))
+            {
+                procID = proc;
+            }
+            this.Text = "Get Garena Token by Banana - " + cmbUsername.Text + "(" + procID.Id.ToString() + ")";
+        }
 
-        private void CheckClient()
+        private bool IsOpenProc(String ProcName)
+        {
+            Process[] processes = Process.GetProcessesByName(ProcName);
+            return processes.Length > 0;
+        }
+
+        private bool IsOpenProcID(String Name, int Id)
+        {
+            if (IsOpenProc(Name))
+                foreach (Process processes in Process.GetProcessesByName(Name))
+                {
+                    if (processes.Id == Id) return true;
+                }
+            return false;
+        }
+
+        private void CheckProcess(String ProcessN)
         {
             int Lol = 0;
-            while ( Lol == 0 )
+            while (Lol == 0)
             {
-                Process[] processes = Process.GetProcessesByName("LolClient");
-                if ( processes.Length > 0 )
+                if (IsOpenProc(ProcessN))
                 {
                     Lol = 1;
                 }
-                
             }
-            GetToken();
-                
         }
 
+        #endregion
 
-        private void timeBug_Tick(object sender, EventArgs e)
+        #region LoadComboBox
+        private void LoadUsername()
         {
-            
-            i++;
-            if (i == 60) i = 0;
-            this.Text = "Get Garena Token by Banana " + i.ToString();
-            try
-            {
-                foreach (Process proc in Process.GetProcessesByName("BsSndRpt"))
-                {
-                    proc.Kill();
-                    foreach (Process proc1 in Process.GetProcessesByName("RitoBot"))
-                    {
-                        proc1.Kill();
-                    }
-                    
-                    StartLOL();
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            SQLiteCommand u_sql = new SQLiteCommand();
+            u_sql.CommandText = "select * from account";
+            GetData(u_sql);
+            cmbUsername.DataSource = bs;
+            cmbUsername.DisplayMember = "Username";
+            cmbUsername.ValueMember = "ID";
+
         }
 
-        private void Clock_Tick(object sender, EventArgs e)
+
+        private void LoadUID()
         {
-            Clock.Enabled = false;
-            lblDone.Visible = false;
+            SQLiteCommand u_sql = new SQLiteCommand();
+            u_sql.CommandText = "select * from account";
+            GetData(u_sql);
+            cmbUID.DataSource = bs;
+            cmbUID.DisplayMember = "UID";
+            cmbUID.ValueMember = "ID";
         }
+        #endregion
 
-
-
-        
     }
 }
