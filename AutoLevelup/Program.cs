@@ -391,7 +391,7 @@ namespace AutoLevelup
             else if (Player.BaseSkinName == "Zilean") abilitySequence = new int[] { 1, 2, 3, 1, 1, 4, 1, 3, 1, 3, 4, 3, 3, 2, 2, 4, 2, 2 };
             else if (Player.BaseSkinName == "Zyra") abilitySequence = new int[] { 3, 2, 1, 3, 1, 4, 3, 1, 3, 1, 4, 3, 1, 2, 2, 4, 2, 2 };
 
-            Game.OnGameUpdate += Game_OnGameUpdate;
+            Game.OnUpdate += Game_OnGameUpdate;
             Game.PrintChat("<font color='#C80046'>Changelog:Azir, the Emperor of the Sands Added</font>");
             Game.PrintChat(Player.BaseSkinName + tipo + " loaded");
         }
